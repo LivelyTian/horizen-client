@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Ubuntu 是构建 Java 项目的常用选择
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: 'gradle' # 缓存 Gradle 依赖以加快后续构建速度
+        cache: 'gradle'
 
     - name: Make Gradle Wrapper executable
       run: chmod +x ./gradlew
@@ -29,9 +29,10 @@ jobs:
 
     - name: Upload build artifacts
       if: success()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # ✅ 已更新为 v4
       with:
         name: horizen-client-jar
         path: |
-          # 上传构建生成的 JAR 文件
           ./build/libs/*.jar
+        # v4 新增：可选的 retention-days
+        retention-days: 7
