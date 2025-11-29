@@ -19,20 +19,16 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: 'gradle'
 
-    - name: Make Gradle Wrapper executable
-      run: chmod +x ./gradlew
+    # 注意：这里不再需要 Make Gradle Wrapper executable 步骤
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: gradle build # 直接使用 gradle 命令
 
     - name: Upload build artifacts
       if: success()
-      uses: actions/upload-artifact@v4  # ✅ 已更新为 v4
+      uses: actions/upload-artifact@v4
       with:
         name: horizen-client-jar
         path: |
           ./build/libs/*.jar
-        # v4 新增：可选的 retention-days
-        retention-days: 7
