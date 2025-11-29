@@ -20,10 +20,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # 注意：这里不再需要 Make Gradle Wrapper executable 步骤
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2 # 推荐使用官方插件
 
     - name: Build with Gradle
-      run: gradle build # 直接使用 gradle 命令
+      run: gradle build
 
     - name: Upload build artifacts
       if: success()
